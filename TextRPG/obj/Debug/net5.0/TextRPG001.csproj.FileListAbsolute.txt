@@ -1,0 +1,16 @@
+C:\UNITYCS\UnityCS\TextRPG001\bin\Debug\net5.0\TextRPG001.exe
+C:\UNITYCS\UnityCS\TextRPG001\bin\Debug\net5.0\TextRPG001.deps.json
+C:\UNITYCS\UnityCS\TextRPG001\bin\Debug\net5.0\TextRPG001.runtimeconfig.json
+C:\UNITYCS\UnityCS\TextRPG001\bin\Debug\net5.0\TextRPG001.runtimeconfig.dev.json
+C:\UNITYCS\UnityCS\TextRPG001\bin\Debug\net5.0\TextRPG001.dll
+C:\UNITYCS\UnityCS\TextRPG001\bin\Debug\net5.0\ref\TextRPG001.dll
+C:\UNITYCS\UnityCS\TextRPG001\bin\Debug\net5.0\TextRPG001.pdb
+C:\UNITYCS\UnityCS\TextRPG001\obj\Debug\net5.0\TextRPG001.csproj.AssemblyReference.cache
+C:\UNITYCS\UnityCS\TextRPG001\obj\Debug\net5.0\TextRPG001.GeneratedMSBuildEditorConfig.editorconfig
+C:\UNITYCS\UnityCS\TextRPG001\obj\Debug\net5.0\TextRPG001.AssemblyInfoInputs.cache
+C:\UNITYCS\UnityCS\TextRPG001\obj\Debug\net5.0\TextRPG001.AssemblyInfo.cs
+C:\UNITYCS\UnityCS\TextRPG001\obj\Debug\net5.0\TextRPG001.csproj.CoreCompileInputs.cache
+C:\UNITYCS\UnityCS\TextRPG001\obj\Debug\net5.0\TextRPG001.dll
+C:\UNITYCS\UnityCS\TextRPG001\obj\Debug\net5.0\ref\TextRPG001.dll
+C:\UNITYCS\UnityCS\TextRPG001\obj\Debug\net5.0\TextRPG001.pdb
+C:\UNITYCS\UnityCS\TextRPG001\obj\Debug\net5.0\TextRPG001.genruntimeconfig.cache
