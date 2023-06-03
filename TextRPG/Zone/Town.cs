@@ -9,7 +9,65 @@ class Town
 {
     static void Equipment(Player _player)
     {
+        _player.PEquip.SetEquip(_player.PInven);
+        _player.PInven.SetPlayerEquipment(_player.PEquip);
 
+        Inven.SelectIndex = 0;
+        bool stay_equip = true;
+        while (stay_equip)
+        {
+            Console.Clear();
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("");
+            Console.WriteLine("착용 중인 장비 목록");
+            Console.WriteLine("");
+            _player.PEquip.Render();
+            Console.WriteLine("");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("");
+            
+            Console.WriteLine("플레이어 인벤토리 목록");
+            Console.WriteLine("");
+            _player.PInven.RenderForE();
+            Console.WriteLine("");
+            _player.StatusRender();
+            Console.WriteLine("");
+            Console.WriteLine("커서 옮기기 : 방향키");
+            Console.WriteLine("아이템 선택하기 : Enter");
+            Console.WriteLine("");
+            Console.WriteLine("아이템을 선택해 착용 가능");
+            Console.WriteLine("");
+            ConsoleKeyInfo ShopKeyInfo = Console.ReadKey();
+
+            switch (ShopKeyInfo.Key)
+            {
+                case ConsoleKey.UpArrow:
+                case ConsoleKey.DownArrow:
+                case ConsoleKey.LeftArrow:
+                case ConsoleKey.RightArrow:
+                    if (Inven.SelectIndex < _player.PEquip.InvenSize())
+                    {
+                        _player.PEquip.SelectMove(Console.ReadKey());
+                    }
+                    else
+                    {
+                        _player.PInven.SelectMoveInEquip(Console.ReadKey());
+                    }
+                    break;
+                case ConsoleKey.Enter:
+                    _player.PEquip.SelectItem_E();
+                    break;
+                case ConsoleKey.Escape:
+                    Console.WriteLine("");
+                    Console.WriteLine("ㅁ장비 확인을 끝마칩니다..");
+                    //Console.ReadKey();
+                    stay_equip = false;
+                    break;
+                default:
+                    break;
+            }
+
+        }
     }
     static void Shop(Player _player, ShopInven _ShopInven)
     {
@@ -79,6 +137,7 @@ class Town
         shopInven.ItemPut(new Item("횃불", 50));
 
         player.PInven.SetShopInven(shopInven);
+        
         
 
         while (true)

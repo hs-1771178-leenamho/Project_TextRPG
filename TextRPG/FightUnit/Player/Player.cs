@@ -10,12 +10,22 @@ class Player : FightUnit
     public Player(){
         this.At += 10;
     }
-    PlayerInven PlayerInven = new PlayerInven(new Inven(5, 3));
+    PlayerInven _PlayerInven = new PlayerInven(new Inven(5, 3));
+    PlayerEquipment _PlayerEquipment = new PlayerEquipment(new Inven(5,1));
+
     public PlayerInven PInven
     {
         get
         {
-            return PlayerInven;
+            return _PlayerInven;
+        }
+    }
+
+    public PlayerEquipment PEquip
+    {
+        get
+        {
+            return _PlayerEquipment;
         }
     }
 

@@ -5,38 +5,56 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-class ShopInven : Inven
+class PlayerEquipment : Inven
 {
-    Inven S_Inven;
-    public Item[] Shop_ArrItem;
-    int SelectIdx_S;
-    int Shop_X;
-    int Shop_Y;
-
-    public ShopInven(Inven _S_Inven) : base(_S_Inven.X, _S_Inven.Y)
+    Inven _P_EInven;
+    Item[] Equip_Arr;
+    Item selectedItem_E;
+    PlayerInven mPlayerInven;
+    public PlayerInven PlayerInven
     {
-        this.S_Inven = _S_Inven;
-        this.Shop_ArrItem = _S_Inven.ArrItem;
-        this.SelectIdx_S = Inven.SelectIndex;
-        this.Shop_X = _S_Inven.X;
-        this.Shop_Y = _S_Inven.Y;
+        get
+        {
+            return this.mPlayerInven;
+        }
+        set
+        {
+            this.mPlayerInven = value;
+        }
+    }
+    int _P_E_X;
+    int _P_E_Y;
+    int SelectIdx_E;
+
+    public PlayerEquipment(Inven _P_Inven) : base(_P_Inven.X, _P_Inven.Y)
+    {
+        this._P_EInven = _P_Inven;
+        this._P_E_X = _P_Inven.X;
+        this._P_E_Y = _P_Inven.Y;
+        this.SelectIdx_E = Inven.SelectIndex;
+        this.Equip_Arr = _P_Inven.ArrItem;
+    }
+    
+    public void SetEquip(PlayerInven _PlayerInven)
+    {
+        this.PlayerInven = _PlayerInven;
     }
 
     public override void Render()
     {
-        this.SelectIdx_S = Inven.SelectIndex;
-        for (int i = 0; i < Shop_ArrItem.Length; i++)
+        this.SelectIdx_E = Inven.SelectIndex;
+        for (int i = 0; i < Equip_Arr.Length; i++)
         {
-            if (i != 0 && i % Shop_X == 0)
+            if (i != 0 && i % itemX == 0)
             {
                 Console.WriteLine("");
             }
 
-            if (SelectIdx_S == i)
+            if (SelectIdx_E == i)
             {
                 Console.Write("▣");
             }
-            else if (Shop_ArrItem[i] == null)
+            else if (Equip_Arr[i] == null)
             {
                 Console.Write("□");
             }
@@ -48,9 +66,14 @@ class ShopInven : Inven
 
         Console.WriteLine("");
         Console.WriteLine("");
-        if (SelectIdx_S < Shop_ArrItem.Length)
+        if (selectedItem_E != null)
         {
-            if (Shop_ArrItem[SelectIdx_S] == null)
+            Console.WriteLine("선택한 아이템 : " + selectedItem_E.Name);           
+            Console.WriteLine("");
+        }
+        if (SelectIdx_E >= 0 && SelectIdx_E < _P_E_X * _P_E_Y)
+        {
+            if (Equip_Arr[SelectIdx_E] == null)
             {
                 Console.WriteLine("현재 선택된 슬롯");
                 Console.WriteLine("비어있음");
@@ -58,22 +81,18 @@ class ShopInven : Inven
             else
             {
                 Console.WriteLine("현재 선택된 슬롯");
-                Console.WriteLine("이름 : " + Shop_ArrItem[SelectIdx_S].Name);
-                Console.WriteLine("가격 : " + Shop_ArrItem[SelectIdx_S].Gold + "G");
+                Console.WriteLine("이름 : " + Equip_Arr[SelectIdx_E].Name);
             }
         }
     }
-
     public override bool OverCheck(int _SelectIndex)
     {
         if ((_SelectIndex >= 0 && _SelectIndex < ArrItem.Length) && !switchInvenMove)
         {
-            //switchShopAndPlayer = !switchShopAndPlayer;
             return false;
         }
         else
         {
-
             return true;
         }
     }
@@ -98,9 +117,10 @@ class ShopInven : Inven
 
         if (OverCheck(CheckIdx))
         {
-            //return;
             switchInvenMove = !switchInvenMove;
+            //return;
         }
+
         SelectIndex += itemX;
     }
 
@@ -124,22 +144,16 @@ class ShopInven : Inven
 
         if (OverCheck(CheckIdx))
         {
-            //return;
             switchInvenMove = !switchInvenMove;
+            //return;
         }
+
         SelectIndex++;
     }
 
-    public override void ItemPut(Item _Item)
+    public void SelectItem_E()
     {
-        for (int i = 0; i < Shop_ArrItem.Length; i++)
-        {
-            if (Shop_ArrItem[i] == null)
-            {
-                Shop_ArrItem[i] = _Item;
-                break;
-            }
-        }
+
     }
 }
 
