@@ -7,4 +7,4 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = TextRPG
-build_property.ProjectDir = C:\Users\namho\source\repos\TextRPG\
+build_property.ProjectDir = C:\Users\namho\Documents\GitHub\Project_TextRPG\TextRPG\
