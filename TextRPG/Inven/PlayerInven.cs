@@ -11,7 +11,7 @@ class PlayerInven : Inven
     Item[] Player_ArrItem;
     Item selectedItem;
     ShopInven mshopInven;
-    ShopInven shopInven {
+    protected ShopInven shopInven {
         get
         {
             return this.mshopInven;
@@ -101,6 +101,53 @@ class PlayerInven : Inven
                 Console.WriteLine("현재 선택된 슬롯");
                 Console.WriteLine("이름 : " + Player_ArrItem[SelectIdx_P].Name);
                 Console.WriteLine("가격 : " + Player_ArrItem[SelectIdx_P].Gold + "G");
+            }
+        }
+    }
+
+    public void RenderForE()
+    {
+        this.SelectIdx_P = Inven.SelectIndex - (P_Inven.X * P_Inven.Y);
+        for (int i = 0; i < Player_ArrItem.Length; i++)
+        {
+            if (i != 0 && i % itemX == 0)
+            {
+                Console.WriteLine("");
+            }
+
+            if (SelectIdx_P == i)
+            {
+                Console.Write("▣");
+            }
+            else if (Player_ArrItem[i] == null)
+            {
+                Console.Write("□");
+            }
+            else
+            {
+                Console.Write("■");
+            }
+        }
+
+        Console.WriteLine("");
+        Console.WriteLine("");
+        
+        if (selectedItem != null)
+        {
+            Console.WriteLine("선택한 아이템 : " + selectedItem.Name);
+            Console.WriteLine("");
+        }
+        if (SelectIdx_P >= 0 && SelectIdx_P < Player_X * Player_Y)
+        {
+            if (Player_ArrItem[SelectIdx_P] == null)
+            {
+                Console.WriteLine("현재 선택된 슬롯");
+                Console.WriteLine("비어있음");
+            }
+            else
+            {
+                Console.WriteLine("현재 선택된 슬롯");
+                Console.WriteLine("이름 : " + Player_ArrItem[SelectIdx_P].Name);
             }
         }
     }
