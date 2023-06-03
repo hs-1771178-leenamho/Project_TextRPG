@@ -14,7 +14,7 @@ class Inven
     public Item[] ArrItem;
     protected int itemX;
     public static int  SelectIndex = 0;
-    protected static bool switchShopAndPlayer = false;
+    protected static bool switchInvenMove = false;
     int mX;
     int mY;
     public int X
@@ -59,7 +59,7 @@ class Inven
 
     public virtual bool OverCheck(int _SelectIndex)
     {
-        if ((_SelectIndex >= 0 && _SelectIndex < ArrItem.Length) && !switchShopAndPlayer)
+        if ((_SelectIndex >= 0 && _SelectIndex < ArrItem.Length))
         {
             //switchShopAndPlayer = !switchShopAndPlayer;
             return false;

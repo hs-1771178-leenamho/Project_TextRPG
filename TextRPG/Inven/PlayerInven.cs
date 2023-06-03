@@ -8,7 +8,18 @@ using System.Threading.Tasks;
 class PlayerInven : Inven
 {
     Inven P_Inven;
-    Item[] Player_ArrItem;
+    Item[] mPlayer_ArrItem;
+    public Item[] Player_ArrItem
+    {
+        get
+        {
+            return this.mPlayer_ArrItem;
+        }
+        set
+        {
+            this.mPlayer_ArrItem = value;
+        }
+    }
     Item selectedItem;
     ShopInven mshopInven;
     protected ShopInven shopInven {
@@ -21,10 +32,36 @@ class PlayerInven : Inven
             this.mshopInven = value;
         }
     }
+    PlayerEquipment mPlayerEquipment;
+    protected PlayerEquipment playerEquipment
+    {
+        get
+        {
+            return this.mPlayerEquipment;
+        }
+        set
+        {
+            this.mPlayerEquipment = value;
+        }
+    }
     
     int SelectIdx_P;
-    int Player_X;
-    int Player_Y;
+    int mPlayer_X;
+    public int Player_X
+    {
+        get
+        {
+            return mPlayer_X;
+        }
+    }
+    int mPlayer_Y;
+    public int Player_Y
+    {
+        get
+        {
+            return mPlayer_Y;
+        }
+    }
     int mGold = 100;
     public int Gold
     {
@@ -46,19 +83,24 @@ class PlayerInven : Inven
         this.shopInven = S_Inven;
     }
 
+    public void SetPlayerEquipment(PlayerEquipment P_Equip)
+    {
+        this.playerEquipment = P_Equip;
+    }
+
     public PlayerInven(Inven _P_Inven) : base(_P_Inven.X, _P_Inven.Y)
     {
         this.P_Inven = _P_Inven;
-        this.Player_ArrItem = _P_Inven.ArrItem;
+        this.mPlayer_ArrItem = _P_Inven.ArrItem;
         this.SelectIdx_P = Inven.SelectIndex - (_P_Inven.X * _P_Inven.Y);
-        this.Player_X = _P_Inven.X;
-        this.Player_Y = _P_Inven.Y;
+        this.mPlayer_X = _P_Inven.X;
+        this.mPlayer_Y = _P_Inven.Y;
     }
 
     public override void Render()
     {
         this.SelectIdx_P = Inven.SelectIndex - (P_Inven.X * P_Inven.Y);
-        for (int i = 0; i < Player_ArrItem.Length; i++)
+        for (int i = 0; i < mPlayer_ArrItem.Length; i++)
         {
             if (i != 0 && i % itemX == 0)
             {
@@ -69,7 +111,7 @@ class PlayerInven : Inven
             {
                 Console.Write("▣");
             }
-            else if (Player_ArrItem[i] == null)
+            else if (mPlayer_ArrItem[i] == null)
             {
                 Console.Write("□");
             }
@@ -89,9 +131,9 @@ class PlayerInven : Inven
             Console.WriteLine("가격 : " + selectedItem.Gold + "G");
             Console.WriteLine("");
         }
-        if (SelectIdx_P >= 0 && SelectIdx_P < Player_X * Player_Y)
+        if (SelectIdx_P >= 0 && SelectIdx_P < mPlayer_X * mPlayer_Y)
         {
-            if (Player_ArrItem[SelectIdx_P] == null)
+            if (mPlayer_ArrItem[SelectIdx_P] == null)
             {
                 Console.WriteLine("현재 선택된 슬롯");
                 Console.WriteLine("비어있음");
@@ -99,16 +141,16 @@ class PlayerInven : Inven
             else
             {
                 Console.WriteLine("현재 선택된 슬롯");
-                Console.WriteLine("이름 : " + Player_ArrItem[SelectIdx_P].Name);
-                Console.WriteLine("가격 : " + Player_ArrItem[SelectIdx_P].Gold + "G");
+                Console.WriteLine("이름 : " + mPlayer_ArrItem[SelectIdx_P].Name);
+                Console.WriteLine("가격 : " + mPlayer_ArrItem[SelectIdx_P].Gold + "G");
             }
         }
     }
 
     public void RenderForE()
     {
-        this.SelectIdx_P = Inven.SelectIndex - (P_Inven.X * P_Inven.Y);
-        for (int i = 0; i < Player_ArrItem.Length; i++)
+        if(playerEquipment != null) this.SelectIdx_P = Inven.SelectIndex - playerEquipment.InvenSize();
+        for (int i = 0; i < mPlayer_ArrItem.Length; i++)
         {
             if (i != 0 && i % itemX == 0)
             {
@@ -119,7 +161,7 @@ class PlayerInven : Inven
             {
                 Console.Write("▣");
             }
-            else if (Player_ArrItem[i] == null)
+            else if (mPlayer_ArrItem[i] == null)
             {
                 Console.Write("□");
             }
@@ -137,9 +179,9 @@ class PlayerInven : Inven
             Console.WriteLine("선택한 아이템 : " + selectedItem.Name);
             Console.WriteLine("");
         }
-        if (SelectIdx_P >= 0 && SelectIdx_P < Player_X * Player_Y)
+        if (SelectIdx_P >= 0 && SelectIdx_P < mPlayer_X * mPlayer_Y)
         {
-            if (Player_ArrItem[SelectIdx_P] == null)
+            if (mPlayer_ArrItem[SelectIdx_P] == null)
             {
                 Console.WriteLine("현재 선택된 슬롯");
                 Console.WriteLine("비어있음");
@@ -147,15 +189,15 @@ class PlayerInven : Inven
             else
             {
                 Console.WriteLine("현재 선택된 슬롯");
-                Console.WriteLine("이름 : " + Player_ArrItem[SelectIdx_P].Name);
+                Console.WriteLine("이름 : " + mPlayer_ArrItem[SelectIdx_P].Name);
             }
         }
     }
-
+    #region MoveBetweenShopAndPlayer
     public override bool OverCheck(int _SelectIndex)
     {
         //_SelectIndex = SelectIdx_P;
-        if ((_SelectIndex >= Player_ArrItem.Length && _SelectIndex < (Player_ArrItem.Length*2)) && switchShopAndPlayer)
+        if ((_SelectIndex >= mPlayer_ArrItem.Length && _SelectIndex < (mPlayer_ArrItem.Length*2)) && !switchInvenMove)
         {
 
             return false;
@@ -172,7 +214,11 @@ class PlayerInven : Inven
         int CheckIdx = SelectIndex;
         CheckIdx -= itemX;
 
-        if (OverCheck(CheckIdx)) switchShopAndPlayer = !switchShopAndPlayer;
+        if (OverCheck(CheckIdx))
+        {
+            //return;
+            switchInvenMove = !switchInvenMove;
+        }
         SelectIndex -= itemX;
     }
 
@@ -183,8 +229,9 @@ class PlayerInven : Inven
 
         if (OverCheck(CheckIdx))
         {
+            //return;
+            switchInvenMove = !switchInvenMove;
             return;
-            //switchShopAndPlayer = !switchShopAndPlayer;
         }
         SelectIndex += itemX;
     }
@@ -196,11 +243,126 @@ class PlayerInven : Inven
 
         if (OverCheck(CheckIdx))
         {
-            switchShopAndPlayer = !switchShopAndPlayer;
+            switchInvenMove = !switchInvenMove;
+            //return;
         }
 
         SelectIndex--;
     }
+
+    public override void SelectMoveRight()
+    {
+        int CheckIdx = SelectIndex;
+        CheckIdx++;
+
+        if (OverCheck(CheckIdx))
+        {
+            //return;
+            switchInvenMove = !switchInvenMove;
+            return;
+        }
+
+        SelectIndex++;
+    }
+    #endregion
+
+    #region MoveBetweenEqipAndPlayer
+    public void SelectMoveInEquip(ConsoleKeyInfo CheckKey)
+    {
+        switch (CheckKey.Key)
+        {
+            case ConsoleKey.UpArrow:
+                SelectMoveUp();
+                break;
+            case ConsoleKey.DownArrow:
+                SelectMoveDown();
+                break;
+            case ConsoleKey.LeftArrow:
+                SelectMoveLeft();
+                break;
+            case ConsoleKey.RightArrow:
+                SelectMoveRight();
+                break;
+            default:
+                break;
+        }
+    }
+    public bool OverCheckInEquip(int _SelectIndex)
+    {
+        int length = 0;
+        if (playerEquipment != null)
+        {
+            length = playerEquipment.InvenSize();
+        }
+        
+        if ((_SelectIndex >= length && _SelectIndex < length + this.InvenSize()) && !switchInvenMove)
+        {
+
+            return false;
+        }
+        else
+        {
+            //switchShopAndPlayer = !switchShopAndPlayer;
+            return true;
+        }
+    }
+
+    public void SelectMoveUpInEquip()
+    {
+        int CheckIdx = SelectIndex;
+        CheckIdx -= itemX;
+
+        if (OverCheck(CheckIdx))
+        {
+            //return;
+            switchInvenMove = !switchInvenMove;
+        }
+        SelectIndex -= itemX;
+    }
+
+    public void SelectMoveDownInEquip()
+    {
+        int CheckIdx = SelectIndex;
+        CheckIdx += itemX;
+
+        if (OverCheck(CheckIdx))
+        {
+            //return;
+            switchInvenMove = !switchInvenMove;
+            return;
+        }
+        SelectIndex += itemX;
+    }
+
+    public void SelectMoveLeftInEquip()
+    {
+        int CheckIdx = SelectIndex;
+        CheckIdx--;
+
+        if (OverCheck(CheckIdx))
+        {
+            switchInvenMove = !switchInvenMove;
+            //return;
+        }
+
+        SelectIndex--;
+    }
+
+    public void SelectMoveRightInEquip()
+    {
+        int CheckIdx = SelectIndex;
+        CheckIdx++;
+
+        if (OverCheck(CheckIdx))
+        {
+            //return;
+            switchInvenMove = !switchInvenMove;
+            return;
+        }
+
+        SelectIndex++;
+    }
+    #endregion
 
     public void SelectItem()
     {
@@ -215,24 +377,24 @@ class PlayerInven : Inven
                     selectedItem = shopInven.Shop_ArrItem[SelectIndex];
                     shopInven.Shop_ArrItem[SelectIndex] = null;
                 }
-                else if (SelectIndex >= Player_ArrItem.Length && SelectIndex < (Player_ArrItem.Length * 2))
+                else if (SelectIndex >= mPlayer_ArrItem.Length && SelectIndex < (mPlayer_ArrItem.Length * 2))
                 {
                     // 플레이어 인벤에서 아이템 쥐기 ? > 판매하고자 함
                     To_Sell_Item = true;
-                    selectedItem = Player_ArrItem[SelectIdx_P];
-                    Player_ArrItem[SelectIdx_P] = null;
+                    selectedItem = mPlayer_ArrItem[SelectIdx_P];
+                    mPlayer_ArrItem[SelectIdx_P] = null;
                 }
             }
             else // 아이템을 쥐었을 때
             {
                 // 구매하거나 플레이어 인벤에서 위치를 단순히 바꾸고자 할 때
-                if (SelectIndex >= Player_ArrItem.Length && SelectIndex < (Player_ArrItem.Length * 2)){
+                if (SelectIndex >= mPlayer_ArrItem.Length && SelectIndex < (mPlayer_ArrItem.Length * 2)){
                     if (To_Buy_Item) // 구매하고자 할 때
                     {
                         if (selectedItem.Gold <= this.Gold)
                         {
                             this.Gold -= selectedItem.Gold;
-                            Player_ArrItem[SelectIdx_P] = selectedItem;
+                            mPlayer_ArrItem[SelectIdx_P] = selectedItem;
                             selectedItem = null;
                             To_Buy_Item = false;
                         }
@@ -249,7 +411,7 @@ class PlayerInven : Inven
                     }
                     else
                     {
-                        Player_ArrItem[SelectIdx_P] = selectedItem;
+                        mPlayer_ArrItem[SelectIdx_P] = selectedItem;
                         selectedItem = null;
                         To_Sell_Item = false;
                     }

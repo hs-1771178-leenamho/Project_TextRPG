@@ -10,6 +10,18 @@ class PlayerEquipment : Inven
     Inven _P_EInven;
     Item[] Equip_Arr;
     Item selectedItem_E;
+    PlayerInven mPlayerInven;
+    public PlayerInven PlayerInven
+    {
+        get
+        {
+            return this.mPlayerInven;
+        }
+        set
+        {
+            this.mPlayerInven = value;
+        }
+    }
     int _P_E_X;
     int _P_E_Y;
     int SelectIdx_E;
@@ -22,9 +34,15 @@ class PlayerEquipment : Inven
         this.SelectIdx_E = Inven.SelectIndex;
         this.Equip_Arr = _P_Inven.ArrItem;
     }
+    
+    public void SetEquip(PlayerInven _PlayerInven)
+    {
+        this.PlayerInven = _PlayerInven;
+    }
 
     public override void Render()
     {
+        this.SelectIdx_E = Inven.SelectIndex;
         for (int i = 0; i < Equip_Arr.Length; i++)
         {
             if (i != 0 && i % itemX == 0)
@@ -66,6 +84,71 @@ class PlayerEquipment : Inven
                 Console.WriteLine("이름 : " + Equip_Arr[SelectIdx_E].Name);
             }
         }
+    }
+    public override bool OverCheck(int _SelectIndex)
+    {
+        if ((_SelectIndex >= 0 && _SelectIndex < ArrItem.Length) && !switchInvenMove)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public override void SelectMoveUp()
+    {
+        int CheckIdx = SelectIndex;
+        CheckIdx -= itemX;
+
+        if (OverCheck(CheckIdx))
+        {
+            return;
+        }
+
+        SelectIndex -= itemX;
+    }
+
+    public override void SelectMoveDown()
+    {
+        int CheckIdx = SelectIndex;
+        CheckIdx += itemX;
+
+        if (OverCheck(CheckIdx))
+        {
+            switchInvenMove = !switchInvenMove;
+            //return;
+        }
+
+        SelectIndex += itemX;
+    }
+
+    public override void SelectMoveLeft()
+    {
+        int CheckIdx = SelectIndex;
+        CheckIdx--;
+
+        if (OverCheck(CheckIdx))
+        {
+            return;
+        }
+
+        SelectIndex--;
+    }
+
+    public override void SelectMoveRight()
+    {
+        int CheckIdx = SelectIndex;
+        CheckIdx++;
+
+        if (OverCheck(CheckIdx))
+        {
+            switchInvenMove = !switchInvenMove;
+            //return;
+        }
+
+        SelectIndex++;
     }
 
     public void SelectItem_E()

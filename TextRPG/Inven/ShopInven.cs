@@ -64,13 +64,57 @@ class ShopInven : Inven
         }
     }
 
+    public override bool OverCheck(int _SelectIndex)
+    {
+        if ((_SelectIndex >= 0 && _SelectIndex < ArrItem.Length) && !switchInvenMove)
+        {
+            //switchShopAndPlayer = !switchShopAndPlayer;
+            return false;
+        }
+        else
+        {
+
+            return true;
+        }
+    }
+
+    public override void SelectMoveUp()
+    {
+        int CheckIdx = SelectIndex;
+        CheckIdx -= itemX;
+
+        if (OverCheck(CheckIdx))
+        {
+            return;
+        }
+
+        SelectIndex -= itemX;
+    }
+
     public override void SelectMoveDown()
     {
         int CheckIdx = SelectIndex;
         CheckIdx += itemX;
 
-        if (OverCheck(CheckIdx)) switchShopAndPlayer = !switchShopAndPlayer;
+        if (OverCheck(CheckIdx))
+        {
+            //return;
+            switchInvenMove = !switchInvenMove;
+        }
         SelectIndex += itemX;
+    }
+
+    public override void SelectMoveLeft()
+    {
+        int CheckIdx = SelectIndex;
+        CheckIdx--;
+
+        if (OverCheck(CheckIdx))
+        {
+            return;
+        }
+
+        SelectIndex--;
     }
 
     public override void SelectMoveRight()
@@ -78,7 +122,11 @@ class ShopInven : Inven
         int CheckIdx = SelectIndex;
         CheckIdx++;
 
-        if (OverCheck(CheckIdx)) switchShopAndPlayer = !switchShopAndPlayer;
+        if (OverCheck(CheckIdx))
+        {
+            //return;
+            switchInvenMove = !switchInvenMove;
+        }
         SelectIndex++;
     }
 
