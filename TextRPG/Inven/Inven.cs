@@ -14,7 +14,7 @@ class Inven
     public Item[] ArrItem;
     protected int itemX;
     public static int  SelectIndex = 0;
-    protected static bool switchInvenMove = false;
+    //public static bool switchInvenMove = false;
     int mX;
     int mY;
     public int X

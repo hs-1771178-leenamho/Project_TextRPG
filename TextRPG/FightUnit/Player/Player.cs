@@ -7,12 +7,29 @@ using System.Threading.Tasks;
 
 class Player : FightUnit
 {
-    public Player(){
-        this.At += 10;
-    }
+    
     PlayerInven _PlayerInven = new PlayerInven(new Inven(5, 3));
     PlayerEquipment _PlayerEquipment = new PlayerEquipment(new Inven(5,1));
 
+    int mDef = 0;
+
+    public int Def
+    {
+        get
+        {
+            return this.mDef;
+        }
+        set
+        {
+            this.mDef = value;
+        }
+    }
+
+    public Player()
+    {
+        this.At += 10;
+        this.Def = 10;
+    }
     public PlayerInven PInven
     {
         get
@@ -33,6 +50,15 @@ class Player : FightUnit
     public void setHp()
     {
         this.Hp = 1;
+    }
+
+    public override void StatusRender()
+    {
+        Console.WriteLine("-------------" + this.m_Name + "-------------");
+        Console.WriteLine("체력 : " + this.Hp + "/" + this.m_MaxHp);
+        Console.WriteLine("공격력 : " + this.At);
+        Console.WriteLine("방어력 : " + this.Def);
+        Console.WriteLine("------------------------------");
     }
 
     public void Heal()
