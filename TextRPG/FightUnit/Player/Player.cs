@@ -11,20 +11,6 @@ class Player : FightUnit
     PlayerInven _PlayerInven = new PlayerInven(new Inven(5, 3));
     PlayerEquipment _PlayerEquipment = new PlayerEquipment(new Inven(5,1));
 
-    int mDef = 0;
-
-    public int Def
-    {
-        get
-        {
-            return this.mDef;
-        }
-        set
-        {
-            this.mDef = value;
-        }
-    }
-
     public Player()
     {
         this.At += 10;
@@ -75,34 +61,6 @@ class Player : FightUnit
         this.At += 10;
     }
 
-    public override void Damage(FightUnit _Other)
-    {
-        int dmg = 0;
-        if (_Other.Hp <= 0)
-        {
-            return;
-        }
-
-        Console.WriteLine(_Other.Name + "의 공격!");
-        dmg = _Other.At - this.Def;
-        if (dmg <= 0) dmg = 0;
-        this.Hp -= dmg;
-        Console.ReadKey();
-        if (this.Hp <= 0)
-        {
-            this.Hp = 0;
-        }
-        Console.WriteLine(this.m_Name + "의 HP : " + this.Hp);
-        Console.ReadKey();
-
-        if (this.Hp == 0)
-        {
-            Console.WriteLine("");
-            Console.WriteLine(this.m_Name + "가 쓰러졌습니다.");
-            Console.ReadKey();
-            Console.WriteLine("전투 종료");
-            Console.ReadKey();
-        }
-    }
+    
 }
 

@@ -19,8 +19,8 @@ class Program
                     PlayerSelect = Town.InTown(newPlayer);
                     break;
                 case STARTSELECT.SELECTBATTLEZONE:
-                    Monster newMoster = new Monster();
-                    newMoster.Name = "오크";
+                    Monster newMoster = new Monster("오크", 100, 10, 5);
+                    //newMoster.Name = "오크";
                     PlayerSelect = BattleZone.InBattleZone(newPlayer, newMoster);
                     break;
                 case STARTSELECT.NONESELECT:
