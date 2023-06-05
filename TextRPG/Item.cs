@@ -9,6 +9,8 @@ class Item
 {
     String mName;
     int mGold;
+    int mItemAt;
+    int mItemDef;
 
     public String Name
     {
@@ -35,10 +37,36 @@ class Item
         }
     }
 
-    public Item(string _Name, int _Gold)
+    public int ItemAt
+    {
+        get
+        {
+            return mItemAt;
+        }
+        set
+        {
+            this.mItemAt = value;
+        }
+    }
+
+    public int ItemDef
+    {
+        get
+        {
+            return mItemDef;
+        }
+        set
+        {
+            this.mItemDef = value;
+        }
+    }
+
+    public Item(string _Name, int _Gold, int _ItemAt, int _ItemDef)
     {
         this.Name = _Name;
         this.Gold = _Gold;
+        this.ItemAt = _ItemAt;
+        this.ItemDef = _ItemDef;
     }
 }
 

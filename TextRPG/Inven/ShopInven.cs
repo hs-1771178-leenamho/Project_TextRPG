@@ -12,6 +12,7 @@ class ShopInven : Inven
     int SelectIdx_S;
     int Shop_X;
     int Shop_Y;
+    public bool switchShopMove;
 
     public ShopInven(Inven _S_Inven) : base(_S_Inven.X, _S_Inven.Y)
     {
@@ -20,6 +21,7 @@ class ShopInven : Inven
         this.SelectIdx_S = Inven.SelectIndex;
         this.Shop_X = _S_Inven.X;
         this.Shop_Y = _S_Inven.Y;
+        this.switchShopMove = false;
     }
 
     public override void Render()
@@ -66,7 +68,7 @@ class ShopInven : Inven
 
     public override bool OverCheck(int _SelectIndex)
     {
-        if ((_SelectIndex >= 0 && _SelectIndex < ArrItem.Length) && !switchInvenMove)
+        if ((_SelectIndex >= 0 && _SelectIndex < ArrItem.Length) && !switchShopMove)
         {
             //switchShopAndPlayer = !switchShopAndPlayer;
             return false;
@@ -99,7 +101,7 @@ class ShopInven : Inven
         if (OverCheck(CheckIdx))
         {
             //return;
-            switchInvenMove = !switchInvenMove;
+            switchShopMove = !switchShopMove;
         }
         SelectIndex += itemX;
     }
@@ -125,7 +127,7 @@ class ShopInven : Inven
         if (OverCheck(CheckIdx))
         {
             //return;
-            switchInvenMove = !switchInvenMove;
+            switchShopMove = !switchShopMove;
         }
         SelectIndex++;
     }

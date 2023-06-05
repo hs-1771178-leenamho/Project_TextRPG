@@ -59,7 +59,7 @@ class FightUnit
         }
     }
 
-    public void StatusRender()
+    public virtual void StatusRender()
     {
         Console.WriteLine("-------------" + this.m_Name + "-------------");
         Console.WriteLine("체력 : " + this.Hp + "/" + this.m_MaxHp);

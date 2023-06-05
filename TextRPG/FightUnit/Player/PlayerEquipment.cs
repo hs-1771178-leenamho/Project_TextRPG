@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 class PlayerEquipment : Inven
 {
     Inven _P_EInven;
-    Item[] Equip_Arr;
+    public Item[] Equip_Arr;
     Item selectedItem_E;
     PlayerInven mPlayerInven;
+    public bool switchEquipMove;
     public PlayerInven PlayerInven
     {
         get
@@ -33,6 +34,7 @@ class PlayerEquipment : Inven
         this._P_E_Y = _P_Inven.Y;
         this.SelectIdx_E = Inven.SelectIndex;
         this.Equip_Arr = _P_Inven.ArrItem;
+        this.switchEquipMove = false;
     }
     
     public void SetEquip(PlayerInven _PlayerInven)
@@ -87,7 +89,7 @@ class PlayerEquipment : Inven
     }
     public override bool OverCheck(int _SelectIndex)
     {
-        if ((_SelectIndex >= 0 && _SelectIndex < ArrItem.Length) && !switchInvenMove)
+        if ((_SelectIndex >= 0 && _SelectIndex < ArrItem.Length) && !switchEquipMove)
         {
             return false;
         }
@@ -100,28 +102,28 @@ class PlayerEquipment : Inven
     public override void SelectMoveUp()
     {
         int CheckIdx = SelectIndex;
-        CheckIdx -= itemX;
+        CheckIdx -= _P_E_X;
 
         if (OverCheck(CheckIdx))
         {
             return;
         }
 
-        SelectIndex -= itemX;
+        SelectIndex -= _P_E_X;
     }
 
     public override void SelectMoveDown()
     {
         int CheckIdx = SelectIndex;
-        CheckIdx += itemX;
+        CheckIdx += _P_E_X;
 
         if (OverCheck(CheckIdx))
         {
-            switchInvenMove = !switchInvenMove;
+            switchEquipMove = !switchEquipMove;
             //return;
         }
 
-        SelectIndex += itemX;
+        SelectIndex += _P_E_X;
     }
 
     public override void SelectMoveLeft()
@@ -144,16 +146,35 @@ class PlayerEquipment : Inven
 
         if (OverCheck(CheckIdx))
         {
-            switchInvenMove = !switchInvenMove;
+            switchEquipMove = !switchEquipMove;
             //return;
         }
 
         SelectIndex++;
     }
 
-    public void SelectItem_E()
+    public int[] Calcul_Equip()
     {
+        int equipItemAt = 0;
+        int equipItemDef = 0;
+        int[] calArr = new int[2];
+        for(int i = 0; i < Equip_Arr.Length; i++)
+        {
+            if(Equip_Arr[i] == null)
+            {
+                break;
+            }
 
+            selectedItem_E = Equip_Arr[i];
+            equipItemAt += selectedItem_E.ItemAt;
+            equipItemDef += selectedItem_E.ItemDef;
+        }
+
+        calArr[0] = equipItemAt;
+        calArr[1] = equipItemDef;
+
+        return calArr;
     }
+
 }
 

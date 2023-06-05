@@ -12,7 +12,15 @@ class Town
         _player.PEquip.SetEquip(_player.PInven);
         _player.PInven.SetPlayerEquipment(_player.PEquip);
 
+        int[] equipCalArr = new int[2];
+        int[] firstStat = new int[2];
+        int firstAt = _player.At;
+        int firstDef = _player.Def;
+        firstStat[0] = firstAt;
+        firstStat[1] = firstDef;
+
         Inven.SelectIndex = 0;
+        //Inven.switchInvenMove = false;
         bool stay_equip = true;
         while (stay_equip)
         {
@@ -55,7 +63,7 @@ class Town
                     }
                     break;
                 case ConsoleKey.Enter:
-                    _player.PEquip.SelectItem_E();
+                    _player.PInven.SelectEquipItem();
                     break;
                 case ConsoleKey.Escape:
                     Console.WriteLine("");
@@ -66,6 +74,11 @@ class Town
                 default:
                     break;
             }
+            
+            equipCalArr = _player.PEquip.Calcul_Equip();
+
+            _player.At = firstStat[0] + equipCalArr[0];
+            _player.Def = firstStat[1] + equipCalArr[1];
 
         }
     }
@@ -109,7 +122,7 @@ class Town
                     }
                     break;
                 case ConsoleKey.Enter:
-                    _player.PInven.SelectItem();
+                    _player.PInven.SelectShopItem();
                     break;
                 case ConsoleKey.Escape:
                     Console.WriteLine("");
@@ -130,11 +143,11 @@ class Town
     {
         ShopInven shopInven = new ShopInven(new Inven(5, 3));
 
-        shopInven.ItemPut(new Item("철검", 500));
-        shopInven.ItemPut(new Item("갑옷", 700));
-        shopInven.ItemPut(new Item("지도", 100));
-        shopInven.ItemPut(new Item("체력 포션", 150));
-        shopInven.ItemPut(new Item("횃불", 50));
+        shopInven.ItemPut(new Item("철검", 500, 10, 0));
+        shopInven.ItemPut(new Item("갑옷", 700, 0, 20));
+        shopInven.ItemPut(new Item("지도", 100, 0, 0));
+        shopInven.ItemPut(new Item("체력 포션", 150, 0, 0));
+        shopInven.ItemPut(new Item("횃불", 50, 0, 0));
 
         player.PInven.SetShopInven(shopInven);
         
