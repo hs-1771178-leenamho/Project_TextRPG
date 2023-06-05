@@ -77,7 +77,7 @@ class FightUnit
         return this.Hp <= 0;
     }
 
-    public void Damage(FightUnit _Other) // 나를 _Other가 때린다!
+    public virtual void Damage(FightUnit _Other) // 나를 _Other가 때린다!
     {
         if (_Other.Hp <= 0)
         {
