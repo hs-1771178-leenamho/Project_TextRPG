@@ -63,7 +63,7 @@ class PlayerInven : Inven
             return mPlayer_Y;
         }
     }
-    int mGold = 10000;
+    int mGold = 100;
     public int Gold
     {
         get

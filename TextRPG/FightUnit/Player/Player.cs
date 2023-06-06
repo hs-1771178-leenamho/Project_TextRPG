@@ -13,6 +13,7 @@ class Player : FightUnit
 
     public Player()
     {
+        this.Hp = this.MaxHp;
         this.At += 10;
         this.Def = 5;
     }
