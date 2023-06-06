@@ -11,24 +11,11 @@ class Player : FightUnit
     PlayerInven _PlayerInven = new PlayerInven(new Inven(5, 3));
     PlayerEquipment _PlayerEquipment = new PlayerEquipment(new Inven(5,1));
 
-    int mDef = 0;
-
-    public int Def
-    {
-        get
-        {
-            return this.mDef;
-        }
-        set
-        {
-            this.mDef = value;
-        }
-    }
-
     public Player()
     {
+        this.Hp = this.MaxHp;
         this.At += 10;
-        this.Def = 10;
+        this.Def = 5;
     }
     public PlayerInven PInven
     {
@@ -74,5 +61,7 @@ class Player : FightUnit
     {
         this.At += 10;
     }
+
+    
 }
 
