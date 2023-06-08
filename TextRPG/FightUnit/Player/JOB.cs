@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-enum STARTSELECT
+enum SELECTPLAYERJOB
 {
-    SELECTTOWN,
-    SELECTBATTLEZONE,
-    SELECTEND,
-    SELECTJOB,
-    NONESELECT
+    NONSELECT,
+    BEGINNER,
+    KNIGHT,
+    WIZARD,
+    ARCHER,
+    THIEF
 }

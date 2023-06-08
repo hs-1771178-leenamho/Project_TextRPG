@@ -10,6 +10,19 @@ class Player : FightUnit
     
     PlayerInven _PlayerInven = new PlayerInven(new Inven(5, 3));
     PlayerEquipment _PlayerEquipment = new PlayerEquipment(new Inven(5,1));
+    SELECTPLAYERJOB mPlayerJob = SELECTPLAYERJOB.NONSELECT;
+
+    public SELECTPLAYERJOB PlayerJob
+    {
+        get
+        {
+            return mPlayerJob;
+        }
+        set
+        {
+            this.mPlayerJob = value;
+        }
+    }
 
     public Player()
     {
@@ -62,6 +75,7 @@ class Player : FightUnit
         this.At += 10;
     }
 
+    
     
 }
 

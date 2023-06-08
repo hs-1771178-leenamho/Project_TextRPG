@@ -30,12 +30,18 @@ class Program
 
         // 마을과 전투존을 나누어서 진행하고자 한다.
         Console.WriteLine("=================================Text RPG=================================");
-        STARTSELECT PlayerSelect = STARTSELECT.NONESELECT;
+        STARTSELECT PlayerSelect = STARTSELECT.SELECTJOB;
+        SELECTPLAYERJOB PlayerJobSelect = SELECTPLAYERJOB.BEGINNER;
 
         while (true)
         {
             switch (PlayerSelect)
             {
+                case STARTSELECT.SELECTJOB:
+                    PlayerJobSelect = SelectJob.SelectPlayerJob();
+                    PlayerSelect = STARTSELECT.NONESELECT;
+                    newPlayer.PlayerJob = PlayerJobSelect;
+                    break;
                 case STARTSELECT.SELECTTOWN:
                     PlayerSelect = Town.InTown(newPlayer, newShopInven);
                     break;
