@@ -70,24 +70,65 @@ class Player : FightUnit
         }
     }
 
-    public void Calculate_AT()
+    public int Calculate_AT(Item item)
     {
+        int statAt = 0;
+        if(item.ItemType == ITEMTYPE.ARMOR)
+        {
+            return 0;
+        }
+
+        // 직업과 아이템 타입이 일치하면 공격력 그대로, 다르면 공격력 마이너스
         if(this.PlayerJob == SELECTPLAYERJOB.KNIGHT)
         {
-
+            if(item.ItemType == ITEMTYPE.FORKNIGHT)
+            {
+                statAt = item.ItemAt;
+            }
+            else
+            {
+                statAt = item.ItemAt - 5;
+                if (statAt < 0) statAt = 0;
+            }
         }
         else if(this.PlayerJob == SELECTPLAYERJOB.WIZARD)
         {
-
+            if (item.ItemType == ITEMTYPE.FORWIZARD)
+            {
+                statAt = item.ItemAt;
+            }
+            else
+            {
+                statAt = item.ItemAt - 5;
+                if (statAt < 0) statAt = 0;
+            }
         }
         else if(this.PlayerJob == SELECTPLAYERJOB.ARCHER)
         {
-
+            if (item.ItemType == ITEMTYPE.FORARCHER)
+            {
+                statAt = item.ItemAt;
+            }
+            else
+            {
+                statAt = item.ItemAt - 5;
+                if (statAt < 0) statAt = 0;
+            }
         }
         else if(this.PlayerJob == SELECTPLAYERJOB.THIEF)
         {
-
+            if (item.ItemType == ITEMTYPE.FORTHIEF)
+            {
+                statAt = item.ItemAt;
+            }
+            else
+            {
+                statAt = item.ItemAt - 5;
+                if (statAt < 0) statAt = 0;
+            }
         }
+
+        return statAt;
     }
 
     
