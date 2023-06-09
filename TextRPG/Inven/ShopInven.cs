@@ -13,6 +13,7 @@ class ShopInven : Inven
     int Shop_X;
     int Shop_Y;
     public bool switchShopMove;
+    public static int shop_Stage = 0;
 
     public ShopInven(Inven _S_Inven) : base(_S_Inven.X, _S_Inven.Y)
     {

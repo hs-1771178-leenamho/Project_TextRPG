@@ -4,6 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+enum ITEMTYPE
+{
+    FORKNIGHT,
+    FORWIZARD,
+    FORARCHER,
+    FORTHIEF,
+    ARMOR
+}
 
 class Item
 {
@@ -11,6 +19,7 @@ class Item
     int mGold;
     int mItemAt;
     int mItemDef;
+    ITEMTYPE mItemType;
 
     public String Name
     {
@@ -61,9 +70,21 @@ class Item
         }
     }
 
-    public Item(string _Name, int _Gold, int _ItemAt, int _ItemDef)
+    public ITEMTYPE ItemType
+    {
+        get
+        {
+            return mItemType;
+        }
+        set
+        {
+            this.mItemType = value;
+        }
+    }
+    public Item(string _Name, ITEMTYPE _ItemType, int _Gold, int _ItemAt, int _ItemDef)
     {
         this.Name = _Name;
+        this.ItemType = _ItemType;
         this.Gold = _Gold;
         this.ItemAt = _ItemAt;
         this.ItemDef = _ItemDef;

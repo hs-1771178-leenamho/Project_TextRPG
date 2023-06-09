@@ -27,10 +27,12 @@ class BattleZone
         {
             player.PInven.Gold += (Monster.stage * 100) + 50;
             if(Monster.stage < 6)Monster.stage++;
+            if (ShopInven.shop_Stage < 6) ShopInven.shop_Stage++;
         }
         else if (player.isDeath())
         {
             if (Monster.stage < 1) Monster.stage--;
+            
         }
         Console.WriteLine("");
         Console.WriteLine("전투가 끝났습니다.");

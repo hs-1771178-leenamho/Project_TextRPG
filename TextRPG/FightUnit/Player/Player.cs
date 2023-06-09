@@ -70,12 +70,27 @@ class Player : FightUnit
         }
     }
 
-    public void Upgrade()
+    public void Calculate_AT()
     {
-        this.At += 10;
+        if(this.PlayerJob == SELECTPLAYERJOB.KNIGHT)
+        {
+
+        }
+        else if(this.PlayerJob == SELECTPLAYERJOB.WIZARD)
+        {
+
+        }
+        else if(this.PlayerJob == SELECTPLAYERJOB.ARCHER)
+        {
+
+        }
+        else if(this.PlayerJob == SELECTPLAYERJOB.THIEF)
+        {
+
+        }
     }
 
     
-    
+
 }
 

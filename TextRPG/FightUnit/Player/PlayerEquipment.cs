@@ -10,6 +10,7 @@ class PlayerEquipment : Inven
     Inven _P_EInven;
     public Item[] Equip_Arr;
     Item selectedItem_E;
+    Item selectedItem_For_Cal;
     PlayerInven mPlayerInven;
     public bool switchEquipMove;
     public PlayerInven PlayerInven
@@ -165,9 +166,9 @@ class PlayerEquipment : Inven
                 break;
             }
 
-            selectedItem_E = Equip_Arr[i];
-            equipItemAt += selectedItem_E.ItemAt;
-            equipItemDef += selectedItem_E.ItemDef;
+            selectedItem_For_Cal = Equip_Arr[i];
+            equipItemAt += selectedItem_For_Cal.ItemAt;
+            equipItemDef += selectedItem_For_Cal.ItemDef;
         }
 
         calArr[0] = equipItemAt;
