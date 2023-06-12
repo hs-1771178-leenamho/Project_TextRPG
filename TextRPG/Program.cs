@@ -1,25 +1,10 @@
 ﻿using System;
 
-/*
- * 최초 인벤 세팅 저장용
-        ShopInven newShopInven = new ShopInven(new Inven(5, 3));
-
-        newShopInven.ItemPut(new Item("목검", 50, 5, 0));
-        newShopInven.ItemPut(new Item("가죽갑옷", 60, 0, 8));
-        newShopInven.ItemPut(new Item("사슬검", 70, 10, 0));
-        newShopInven.ItemPut(new Item("사슬갑옷", 90, 0, 12));
-        newShopInven.ItemPut(new Item("철검", 120, 20, 0));
-        newShopInven.ItemPut(new Item("철갑옷", 150, 0, 15));
-        newShopInven.ItemPut(new Item("미스릴검", 200, 80, 0));
-        newShopInven.ItemPut(new Item("미스릴갑옷", 220, 0, 45));
-        newShopInven.ItemPut(new Item("아다만티움검", 300, 100, 0));
-        newShopInven.ItemPut(new Item("아다만티움갑옷", 350, 0, 60));
-        */
 class Program
 {
     static void Main(string[] args)
     {
-        Player newPlayer = new Player();
+        Player newPlayer = Player.Instance();
         newPlayer.Name = "용사";
         #region Monster Setting
         Monster[] monsterArr = new Monster[7];
@@ -104,8 +89,6 @@ class Program
                     PlayerSelect = Town.InTown(newPlayer, shopInvenArr[ShopInven.shop_Stage]);
                     break;
                 case STARTSELECT.SELECTBATTLEZONE:
-                    //Monster newMoster = new Monster("오크", 100, 10, 5);
-                    //newMoster.Name = "오크";
                     PlayerSelect = BattleZone.InBattleZone(newPlayer, monsterArr[Monster.stage]);
                     break;
                 case STARTSELECT.NONESELECT:

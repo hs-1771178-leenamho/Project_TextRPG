@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 class Player : FightUnit
 {
-    
+    private static Player _player; // 싱글톤
     PlayerInven _PlayerInven = new PlayerInven(new Inven(5, 3));
     PlayerEquipment _PlayerEquipment = new PlayerEquipment(new Inven(5,1));
     SELECTPLAYERJOB mPlayerJob = SELECTPLAYERJOB.NONSELECT;
@@ -24,11 +24,20 @@ class Player : FightUnit
         }
     }
 
-    public Player()
+    private Player()
     {
         this.Hp = this.MaxHp;
         this.At = 10;
         this.Def = 5;
+    }
+
+    public static Player Instance()
+    {
+        if(_player == null)
+        {
+            _player = new Player();
+        }
+        return _player;
     }
     public PlayerInven PInven
     {
