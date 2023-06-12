@@ -12,15 +12,15 @@ class Town
         _player.PEquip.SetEquip(_player.PInven);
         _player.PInven.SetPlayerEquipment(_player.PEquip);
 
-        int[] equipCalArr = new int[2];
+        /*
         int[] firstStat = new int[2];
         int firstAt = _player.At;
         int firstDef = _player.Def;
         firstStat[0] = firstAt;
         firstStat[1] = firstDef;
-
+        */
         Inven.SelectIndex = 0;
-        //Inven.switchInvenMove = false;
+        
         bool stay_equip = true;
         while (stay_equip)
         {
@@ -38,7 +38,6 @@ class Town
             Console.WriteLine("");
             _player.PInven.RenderForE();
             Console.WriteLine("");
-            _player.StatusRender();
             Console.WriteLine("");
             Console.WriteLine("커서 옮기기 : 방향키");
             Console.WriteLine("아이템 선택하기 : Enter");
@@ -64,10 +63,19 @@ class Town
                     break;
                 case ConsoleKey.Enter:
                     _player.PInven.SelectEquipItem();
+                    
                     break;
                 case ConsoleKey.Escape:
                     Console.WriteLine("");
                     Console.WriteLine("ㅁ장비 확인을 끝마칩니다..");
+                    for(int i = 0; i < _player.PEquip.Equip_Arr.Length; i++)
+                    {
+                        if(_player.PEquip.Equip_Arr[i] != null)
+                        {
+                            _player.Calculate_STAT(_player.PEquip.Equip_Arr[i]);
+                        }
+                    }
+                    _player.StatusRender();
                     //Console.ReadKey();
                     stay_equip = false;
                     break;
@@ -75,10 +83,7 @@ class Town
                     break;
             }
             
-            equipCalArr = _player.PEquip.Calcul_Equip();
-
-            _player.At = firstStat[0] + equipCalArr[0];
-            _player.Def = firstStat[1] + equipCalArr[1];
+            
 
         }
     }
@@ -141,24 +146,9 @@ class Town
 
     public static STARTSELECT InTown(Player player, ShopInven shopInven)
     {
-        /*
-        ShopInven shopInven = new ShopInven(new Inven(5, 3));
-
-        shopInven.ItemPut(new Item("목검", 50, 5, 0));
-        shopInven.ItemPut(new Item("가죽갑옷", 60, 0, 8));
-        shopInven.ItemPut(new Item("사슬검", 70, 10, 0));
-        shopInven.ItemPut(new Item("사슬갑옷", 90, 0, 12));
-        shopInven.ItemPut(new Item("철검", 120, 20, 0));
-        shopInven.ItemPut(new Item("철갑옷", 150, 0, 15));
-        shopInven.ItemPut(new Item("미스릴검", 200, 80, 0));
-        shopInven.ItemPut(new Item("미스릴갑옷", 220, 0, 45));
-        shopInven.ItemPut(new Item("아다만티움검", 300, 100, 0));
-        shopInven.ItemPut(new Item("아다만티움갑옷", 350, 0, 60));*/
-
+        
         player.PInven.SetShopInven(shopInven);
         
-        
-
         while (true)
         {
             Console.Clear();

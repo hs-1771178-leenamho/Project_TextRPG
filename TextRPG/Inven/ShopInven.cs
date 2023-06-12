@@ -13,6 +13,7 @@ class ShopInven : Inven
     int Shop_X;
     int Shop_Y;
     public bool switchShopMove;
+    public static int shop_Stage = 0;
 
     public ShopInven(Inven _S_Inven) : base(_S_Inven.X, _S_Inven.Y)
     {
@@ -61,7 +62,29 @@ class ShopInven : Inven
             {
                 Console.WriteLine("현재 선택된 슬롯");
                 Console.WriteLine("이름 : " + Shop_ArrItem[SelectIdx_S].Name);
-                Console.WriteLine("가격 : " + Shop_ArrItem[SelectIdx_S].Gold + "G");
+                Console.WriteLine("가격 : " + Shop_ArrItem[SelectIdx_S].Gold + "G");                
+                Console.WriteLine("공격력 : " + Shop_ArrItem[SelectIdx_S].ItemAt);
+                Console.WriteLine("방어력 : " + Shop_ArrItem[SelectIdx_S].ItemDef);
+                switch (Shop_ArrItem[SelectIdx_S].ItemType)
+                {
+                    case ITEMTYPE.FORKNIGHT:
+                        Console.WriteLine("아이템 타입 : 기사 무기");
+                        break;
+                    case ITEMTYPE.FORWIZARD:
+                        Console.WriteLine("아이템 타입 : 마법사 무기");
+                        break;
+                    case ITEMTYPE.FORARCHER:
+                        Console.WriteLine("아이템 타입 : 궁수 무기");
+                        break;
+                    case ITEMTYPE.FORTHIEF:
+                        Console.WriteLine("아이템 타입 : 도적 무기");
+                        break;
+                    case ITEMTYPE.ARMOR:
+                        Console.WriteLine("아이템 타입 : 방어구");
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
