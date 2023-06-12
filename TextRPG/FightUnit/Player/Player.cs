@@ -27,7 +27,7 @@ class Player : FightUnit
     public Player()
     {
         this.Hp = this.MaxHp;
-        this.At += 10;
+        this.At = 10;
         this.Def = 5;
     }
     public PlayerInven PInven
@@ -55,6 +55,28 @@ class Player : FightUnit
     public override void StatusRender()
     {
         Console.WriteLine("-------------" + this.m_Name + "-------------");
+        switch (this.PlayerJob)
+        {
+            case SELECTPLAYERJOB.NONSELECT:
+                break;
+            case SELECTPLAYERJOB.BEGINNER:
+                break;
+            case SELECTPLAYERJOB.KNIGHT:
+                Console.WriteLine("직업 : 기사");
+                break;
+            case SELECTPLAYERJOB.WIZARD:
+                Console.WriteLine("직업 : 마법사");
+                break;
+            case SELECTPLAYERJOB.ARCHER:
+                Console.WriteLine("직업 : 궁수");
+                break;
+            case SELECTPLAYERJOB.THIEF:
+                Console.WriteLine("직업 : 도적");
+                break;
+            default:
+                break;
+        }
+        
         Console.WriteLine("체력 : " + this.Hp + "/" + this.m_MaxHp);
         Console.WriteLine("공격력 : " + this.At);
         Console.WriteLine("방어력 : " + this.Def);
@@ -70,65 +92,66 @@ class Player : FightUnit
         }
     }
 
-    public int Calculate_AT(Item item)
+    public void Calculate_STAT(Item item)
     {
-        int statAt = 0;
+        
         if(item.ItemType == ITEMTYPE.ARMOR)
         {
-            return 0;
+            this.Def += item.ItemDef;
+            
         }
 
         // 직업과 아이템 타입이 일치하면 공격력 그대로, 다르면 공격력 마이너스
-        if(this.PlayerJob == SELECTPLAYERJOB.KNIGHT)
+        else if(this.PlayerJob == SELECTPLAYERJOB.KNIGHT)
         {
             if(item.ItemType == ITEMTYPE.FORKNIGHT)
             {
-                statAt = item.ItemAt;
+                this.At += item.ItemAt;
             }
             else
             {
-                statAt = item.ItemAt - 5;
-                if (statAt < 0) statAt = 0;
+                this.At += item.ItemAt - 5;
+                
             }
         }
         else if(this.PlayerJob == SELECTPLAYERJOB.WIZARD)
         {
             if (item.ItemType == ITEMTYPE.FORWIZARD)
             {
-                statAt = item.ItemAt;
+                this.At += item.ItemAt;
             }
             else
             {
-                statAt = item.ItemAt - 5;
-                if (statAt < 0) statAt = 0;
+                this.At += item.ItemAt - 5;
+               
             }
         }
         else if(this.PlayerJob == SELECTPLAYERJOB.ARCHER)
         {
             if (item.ItemType == ITEMTYPE.FORARCHER)
             {
-                statAt = item.ItemAt;
+                this.At += item.ItemAt;
             }
             else
             {
-                statAt = item.ItemAt - 5;
-                if (statAt < 0) statAt = 0;
+                this.At += item.ItemAt - 5;
+                
             }
         }
         else if(this.PlayerJob == SELECTPLAYERJOB.THIEF)
         {
             if (item.ItemType == ITEMTYPE.FORTHIEF)
             {
-                statAt = item.ItemAt;
+                this.At += item.ItemAt;
             }
             else
             {
-                statAt = item.ItemAt - 5;
-                if (statAt < 0) statAt = 0;
+                this.At += item.ItemAt - 5;
+                
             }
         }
 
-        return statAt;
+        
     }
 
     

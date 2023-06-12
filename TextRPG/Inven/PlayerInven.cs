@@ -149,6 +149,28 @@ class PlayerInven : Inven
                 Console.WriteLine("현재 선택된 슬롯");
                 Console.WriteLine("이름 : " + mPlayer_ArrItem[SelectIdx_P].Name);
                 Console.WriteLine("가격 : " + mPlayer_ArrItem[SelectIdx_P].Gold + "G");
+                Console.WriteLine("공격력 : " + mPlayer_ArrItem[SelectIdx_P].ItemAt);
+                Console.WriteLine("방어력 : " + mPlayer_ArrItem[SelectIdx_P].ItemDef);
+                switch (mPlayer_ArrItem[SelectIdx_P].ItemType)
+                {
+                    case ITEMTYPE.FORKNIGHT:
+                        Console.WriteLine("아이템 타입 : 기사 무기");
+                        break;
+                    case ITEMTYPE.FORWIZARD:
+                        Console.WriteLine("아이템 타입 : 마법사 무기");
+                        break;
+                    case ITEMTYPE.FORARCHER:
+                        Console.WriteLine("아이템 타입 : 궁수 무기");
+                        break;
+                    case ITEMTYPE.FORTHIEF:
+                        Console.WriteLine("아이템 타입 : 도적 무기");
+                        break;
+                    case ITEMTYPE.ARMOR:
+                        Console.WriteLine("아이템 타입 : 방어구");
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
@@ -350,6 +372,28 @@ class PlayerInven : Inven
             {
                 Console.WriteLine("현재 선택된 슬롯");
                 Console.WriteLine("이름 : " + mPlayer_ArrItem[SelectIdx_P].Name);
+                Console.WriteLine("공격력 : " + mPlayer_ArrItem[SelectIdx_P].ItemAt);
+                Console.WriteLine("방어력 : " + mPlayer_ArrItem[SelectIdx_P].ItemDef);
+                switch (mPlayer_ArrItem[SelectIdx_P].ItemType)
+                {
+                    case ITEMTYPE.FORKNIGHT:
+                        Console.WriteLine("아이템 타입 : 기사 무기");
+                        break;
+                    case ITEMTYPE.FORWIZARD:
+                        Console.WriteLine("아이템 타입 : 마법사 무기");
+                        break;
+                    case ITEMTYPE.FORARCHER:
+                        Console.WriteLine("아이템 타입 : 궁수 무기");
+                        break;
+                    case ITEMTYPE.FORTHIEF:
+                        Console.WriteLine("아이템 타입 : 도적 무기");
+                        break;
+                    case ITEMTYPE.ARMOR:
+                        Console.WriteLine("아이템 타입 : 방어구");
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

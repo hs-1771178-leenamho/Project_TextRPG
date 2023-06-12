@@ -10,7 +10,6 @@ class PlayerEquipment : Inven
     Inven _P_EInven;
     public Item[] Equip_Arr;
     Item selectedItem_E;
-    Item selectedItem_For_Cal;
     PlayerInven mPlayerInven;
     public bool switchEquipMove;
     public PlayerInven PlayerInven
@@ -85,6 +84,28 @@ class PlayerEquipment : Inven
             {
                 Console.WriteLine("현재 선택된 슬롯");
                 Console.WriteLine("이름 : " + Equip_Arr[SelectIdx_E].Name);
+                Console.WriteLine("공격력 : " + Equip_Arr[SelectIdx_E].ItemAt);
+                Console.WriteLine("방어력 : " + Equip_Arr[SelectIdx_E].ItemDef);
+                switch (Equip_Arr[SelectIdx_E].ItemType)
+                {
+                    case ITEMTYPE.FORKNIGHT:
+                        Console.WriteLine("아이템 타입 : 기사 무기");
+                        break;
+                    case ITEMTYPE.FORWIZARD:
+                        Console.WriteLine("아이템 타입 : 마법사 무기");
+                        break;
+                    case ITEMTYPE.FORARCHER:
+                        Console.WriteLine("아이템 타입 : 궁수 무기");
+                        break;
+                    case ITEMTYPE.FORTHIEF:
+                        Console.WriteLine("아이템 타입 : 도적 무기");
+                        break;
+                    case ITEMTYPE.ARMOR:
+                        Console.WriteLine("아이템 타입 : 방어구");
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
@@ -153,29 +174,6 @@ class PlayerEquipment : Inven
 
         SelectIndex++;
     }
-
-    public int[] Calcul_Equip()
-    {
-        int equipItemAt = 0;
-        int equipItemDef = 0;
-        int[] calArr = new int[2];
-        for(int i = 0; i < Equip_Arr.Length; i++)
-        {
-            if(Equip_Arr[i] == null)
-            {
-                break;
-            }
-
-            selectedItem_For_Cal = Equip_Arr[i];
-            equipItemAt += selectedItem_For_Cal.ItemAt;
-            equipItemDef += selectedItem_For_Cal.ItemDef;
-        }
-
-        calArr[0] = equipItemAt;
-        calArr[1] = equipItemDef;
-
-        return calArr;
-    }
-
+    
 }
 
