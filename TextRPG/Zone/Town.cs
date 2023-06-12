@@ -12,13 +12,6 @@ class Town
         _player.PEquip.SetEquip(_player.PInven);
         _player.PInven.SetPlayerEquipment(_player.PEquip);
 
-        /*
-        int[] firstStat = new int[2];
-        int firstAt = _player.At;
-        int firstDef = _player.Def;
-        firstStat[0] = firstAt;
-        firstStat[1] = firstDef;
-        */
         Inven.SelectIndex = 0;
         
         bool stay_equip = true;
